@@ -1,0 +1,149 @@
+{
+    "100": {
+        "DTC": {
+            "Train_time": 0.0,
+            "Testing_time": 0.03,
+            "Trained_accuracy": 100.0,
+            "Testing_accuracy": 31.94,
+            "TN": 56000,
+            "FP": 0,
+            "FN": 119341,
+            "TP": 0,
+            "Precision": 0.0,
+            "recall": 0.0,
+            "fpr": 0.0,
+            "fnr": 100.0,
+            "tnr": 100.0,
+            "npv": 31.94,
+            "fdr": 0.0,
+            "for": 68.06,
+            "f1": 0.0
+        }
+    },
+    "1000": {
+        "DTC": {
+            "Train_time": 0.01,
+            "Testing_time": 0.03,
+            "Trained_accuracy": 100.0,
+            "Testing_accuracy": 68.08,
+            "TN": 6669,
+            "FP": 49331,
+            "FN": 6643,
+            "TP": 112698,
+            "Precision": 69.55,
+            "recall": 94.43,
+            "fpr": 88.09,
+            "fnr": 5.57,
+            "tnr": 11.91,
+            "npv": 50.1,
+            "fdr": 30.45,
+            "for": 49.9,
+            "f1": 80.11
+        }
+    },
+    "5000": {
+        "DTC": {
+            "Train_time": 0.03,
+            "Testing_time": 0.03,
+            "Trained_accuracy": 100.0,
+            "Testing_accuracy": 68.64,
+            "TN": 4870,
+            "FP": 51130,
+            "FN": 3857,
+            "TP": 115484,
+            "Precision": 69.31,
+            "recall": 96.77,
+            "fpr": 91.3,
+            "fnr": 3.23,
+            "tnr": 8.7,
+            "npv": 55.8,
+            "fdr": 30.69,
+            "for": 44.2,
+            "f1": 80.77
+        }
+    },
+    "10000": {
+        "DTC": {
+            "Train_time": 0.05,
+            "Testing_time": 0.03,
+            "Trained_accuracy": 100.0,
+            "Testing_accuracy": 69.69,
+            "TN": 5424,
+            "FP": 50576,
+            "FN": 2564,
+            "TP": 116777,
+            "Precision": 69.78,
+            "recall": 97.85,
+            "fpr": 90.31,
+            "fnr": 2.15,
+            "tnr": 9.69,
+            "npv": 67.9,
+            "fdr": 30.22,
+            "for": 32.1,
+            "f1": 81.46
+        }
+    },
+    "30000": {
+        "DTC": {
+            "Train_time": 0.14,
+            "Testing_time": 0.03,
+            "Trained_accuracy": 100.0,
+            "Testing_accuracy": 91.98,
+            "TN": 44788,
+            "FP": 11212,
+            "FN": 2850,
+            "TP": 116491,
+            "Precision": 91.22,
+            "recall": 97.61,
+            "fpr": 20.02,
+            "fnr": 2.39,
+            "tnr": 79.98,
+            "npv": 94.02,
+            "fdr": 8.78,
+            "for": 5.98,
+            "f1": 94.31
+        }
+    },
+    "50000": {
+        "DTC": {
+            "Train_time": 0.3,
+            "Testing_time": 0.03,
+            "Trained_accuracy": 99.5,
+            "Testing_accuracy": 91.63,
+            "TN": 51285,
+            "FP": 4715,
+            "FN": 9955,
+            "TP": 109386,
+            "Precision": 95.87,
+            "recall": 91.66,
+            "fpr": 8.42,
+            "fnr": 8.34,
+            "tnr": 91.58,
+            "npv": 83.74,
+            "fdr": 4.13,
+            "for": 16.26,
+            "f1": 93.72
+        }
+    },
+    "-1": {
+        "DTC": {
+            "Train_time": 0.84,
+            "Testing_time": 0.03,
+            "Trained_accuracy": 99.2,
+            "Testing_accuracy": 90.58,
+            "TN": 52402,
+            "FP": 3598,
+            "FN": 12918,
+            "TP": 106423,
+            "Precision": 96.73,
+            "recall": 89.18,
+            "fpr": 6.42,
+            "fnr": 10.82,
+            "tnr": 93.58,
+            "npv": 80.22,
+            "fdr": 3.27,
+            "for": 19.78,
+            "f1": 92.8
+        }
+    }
+}
