@@ -1,11 +1,14 @@
 import dash
+import json
 import plotly.express as px
 from dash import html
 from dash import dcc
 import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from callbacks.callbacks import register_callbacks
+import numpy as np
 
 NAV_LOGO = "https://aaas.asn.au/wp-content/uploads/2020/03/UQ-Logo.png"
 
@@ -33,6 +36,31 @@ app.title = "COMS6200 Project"
 server = app.server
 app.config["suppress_callback_exceptions"] = True
 
+# with open('../data/result.json') as f:
+#     data = json.load(f)
+#
+# df_full = pd.DataFrame.from_records(data['82332'])
+# dtc_full = df_full['DTC']
+# rfc_full = df_full['RFC']
+# gb_full = df_full['GB']
+# xgb_full = df_full['XGB']
+#
+# model = ["Decision Tree", "Random Forest", "Gradient Boosting", "XGBoost"]
+# train_time = []
+# test_time = []
+# train_acc = []
+# test_acc = []
+# precision = []
+# recall = []
+#
+# # train_time = dtc_full['Train_time'].__add__(rfc_full['Train_time'])
+# train_time = np.append(dtc_full['Train_time'], rfc_full['Train_time'], gb_full['Train_time'], xgb_full['Train_time'])
+# # gb_full['Train_time'] + xgb_full['Train_time']
+# print(train_time)
+#
+# # df_full.reset_index(level=0, inplace=True)
+
+
 df = pd.DataFrame({
     "Model": ["Decision Tree", "Random Forest", "Gradient Boosting", "XGBoost"],
     "Training Time": [810, 1120, 18290, 290],
@@ -44,7 +72,7 @@ df = pd.DataFrame({
     "FPR": [6.32, 3.42, 4.95, 5.74],
     "FNR": [10.84, 11.87, 10.57, 9.63],
     "TPR": [66.98, 66.04, 66.72, 67.14],
-    "FPR": [6.32, 3.42, 4.95, 5.74],
+    "TNR": [6.32, 3.42, 4.95, 5.74],
 })
 
 train_test_fig = go.Figure()
@@ -52,50 +80,150 @@ train_test_fig.add_trace(go.Bar(
     y=df["Training Time"],
     x=df["Model"],
     name="Training Time",
-    # marker_color='#EB89B5',
+    marker_color='#778899',
     opacity=0.95,
+    text=df["Training Time"],
+    textposition='outside',
 ))
 
 train_test_fig.add_trace(go.Bar(
     y=df["Testing Time"],
     x=df["Model"],
     name="Testing Time",
-    # marker_color='#330C73',
+    marker_color='#dc143c',
     opacity=0.95,
+    text=df["Testing Time"],
+    textposition='outside',
 ))
 
 train_test_fig.update_layout(
-    title_text="Training & Testing Time",
-    xaxis_title_text="Model Name",
+    # xaxis_title_text="Model Name",
     yaxis_title_text="Time (ms)",
     bargap=0.2,
-    bargroupgap=0.1
+    bargroupgap=0.1,
+    title={
+        'text': 'Training & Testing Time',
+        'y': 0.9,
+        'x': 0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'
+    },
+    legend=dict(
+        orientation='h',
+        yanchor='bottom',
+        y=1.02,
+        xanchor='right',
+        x=1
+    ),
+    uniformtext_minsize=8,
+    uniformtext_mode='hide',
 )
 
 acc_fig = go.Figure()
+
 acc_fig.add_trace(go.Bar(
-    y=df["Training ACC"],
-    x=df["Model"],
+    x=df["Training ACC"],
+    y=df["Model"],
     name="Training ACC",
-    marker_color='#EB89B5',
+    marker_color="#119dff",
+    # marker_color='#EB89B5',
     opacity=0.95,
+    orientation='h',
+    text=df["Training ACC"].apply(lambda x:round(x,2)),
+    textposition='outside',
 ))
 
 acc_fig.add_trace(go.Bar(
-    y=df["Testing ACC"],
-    x=df["Model"],
+    x=df["Testing ACC"],
+    y=df["Model"],
     name="Testing ACC",
-    marker_color='#330C73',
+    marker_color="#66c2a5",
+    # marker_color='#330C73',
     opacity=0.95,
+    orientation='h',
+    text=df["Testing ACC"].apply(lambda x:round(x,2)),
+    textposition='outside',
 ))
+
 
 acc_fig.update_layout(
-    title_text="Training & Testing Accuracy",
-    xaxis_title_text="Model Name",
-    yaxis_title_text="Percentage",
-    bargap=0.2,
-    bargroupgap=0.1
+    xaxis_title_text="Percentage",
+    # yaxis_title_text="Percentage",
+    bargap=0.5,
+    bargroupgap=0.1,
+    yaxis_tickangle=-45,
+    title={
+        'text': 'Training & Testing Accuracy',
+        'y': 0.9,
+        'x': 0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'
+    },
+    legend=dict(
+        orientation='h',
+        yanchor='bottom',
+        y=1.02,
+        xanchor='right',
+        x=1
+    ),
+    uniformtext_minsize=8,
+    uniformtext_mode='hide',
 )
+
+pre_rec_fig = go.Figure()
+
+pre_rec_fig.add_trace(go.Bar(
+    x=df["Precision"],
+    y=df["Model"],
+    name="Precision",
+    marker_color='#EB89B5',
+    opacity=0.95,
+    orientation='h',
+    text=df["Precision"].apply(lambda x:round(x,2)),
+    textposition='outside',
+))
+
+pre_rec_fig.add_trace(go.Bar(
+    x=df["Recall"],
+    y=df["Model"],
+    name="Recall",
+    marker_color='#330C73',
+    opacity=0.95,
+    orientation='h',
+    text=df["Recall"].apply(lambda x:round(x,2)),
+    textposition='outside',
+))
+
+pre_rec_fig.update_layout(
+    xaxis_title_text="Percentage",
+    bargap=0.5,
+    bargroupgap=0.1,
+    yaxis_tickangle=-45,
+    title={
+        'text': 'Precision & Recall',
+        'y': 0.9,
+        'x': 0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'
+    },
+    legend=dict(
+        orientation='h',
+        yanchor='bottom',
+        y=1.02,
+        xanchor='right',
+        x=1
+    ),
+    uniformtext_minsize=8,
+    uniformtext_mode='hide',
+)
+
+# [FNR + TPR] + [TNR + FPR]
+dt = df[df['Model'] == 'Decision Tree']
+dt_fnr = df[df['Model'] == 'Decision Tree']['FNR'].values
+dt_tpr = df[df['Model'] == 'Decision Tree']['TPR'].values
+dt_tnr = df[df['Model'] == 'Decision Tree']['TNR'].values
+dt_fpr = df[df['Model'] == 'Decision Tree']['FPR'].values
+# print(dt_fnr, dt_tpr, dt_tnr, dt_fpr)
 
 
 nav_bar = dbc.Navbar(
@@ -337,22 +465,27 @@ home_content = html.Div(
 result1_content = html.Div(
     [
         html.H1("Model Comparison"),
-        html.Div('''
-            Training Time of Models
-        '''),
+        html.Hr(),
         dcc.Graph(
             id='train-test-graph',
             figure=train_test_fig,
         ),
 
         html.Br(),
-        html.Div('''
-            Accuracy of Models
-        '''),
+        html.Hr(),
         dcc.Graph(
             id='acc-graph',
             figure=acc_fig,
         ),
+        html.Br(),
+        html.Hr(),
+        dcc.Graph(
+            id='pre_rec-graph',
+            figure=pre_rec_fig,
+        ),
+        html.Br(),
+        html.Hr(),
+
     ],
     id="page-content",
     style=CONTENT_STYLE,
