@@ -257,9 +257,9 @@ nav_bar = dbc.Navbar(
     # style={"margin-left": "20rem"}
 )
 
-side_bar = html.Div(
+side_p1 = html.Div(
     [
-        html.H6("Project", className="display-4"),
+        html.H1("Project", className="display-4"),
         html.Hr(),
         html.P(
             "Page Content", className="lead",
@@ -282,6 +282,28 @@ side_bar = html.Div(
             vertical=True,
             pills=True,
         ),
+    ],
+    style=SIDEBAR_STYLE,
+)
+
+side_p2 = html.Div(
+    [
+        html.H1("Result 1", className="display-4"),
+        html.Hr(className="mb-4"),
+        # html.Label("Select Your Models", className="mb-4"),
+        dbc.Alert("Select Your Models", color="primary", className="mb-4"),
+        dcc.Dropdown(
+            options=[
+                {'label': 'Decision Tree', 'value': 'DT'},
+                {'label': 'Random Forest', 'value': 'RF'},
+                {'label': 'Gradient Boosting', 'value': 'GB'},
+                {'label': 'XGBoost', 'value': 'XGB'},
+            ],
+            value=[],
+            multi=True,
+            className="mb-4",
+        ),
+        dbc.Button("Confirm", color="primary", block=True, id="model-dropdown-btn"),
     ],
     style=SIDEBAR_STYLE,
 )
@@ -601,7 +623,12 @@ app.layout = html.Div(
         dbc.Row(
             [
                 dbc.Col(
-                    html.Div(side_bar),
+                    [
+                        html.Div(side_p1, id="side-div-p1"),
+                        html.Div(
+                            side_p2, id="side-div-p2", style={"display": "none"}
+                        ),
+                    ],
                     width={"size": 2},
                 ),
                 dbc.Col(
