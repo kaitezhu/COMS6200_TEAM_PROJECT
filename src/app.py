@@ -129,7 +129,7 @@ acc_fig.add_trace(go.Bar(
     # marker_color='#EB89B5',
     opacity=0.95,
     orientation='h',
-    text=df["Training ACC"].apply(lambda x:round(x,2)),
+    text=df["Training ACC"].apply(lambda x: round(x, 2)),
     textposition='outside',
 ))
 
@@ -141,10 +141,9 @@ acc_fig.add_trace(go.Bar(
     # marker_color='#330C73',
     opacity=0.95,
     orientation='h',
-    text=df["Testing ACC"].apply(lambda x:round(x,2)),
+    text=df["Testing ACC"].apply(lambda x: round(x, 2)),
     textposition='outside',
 ))
-
 
 acc_fig.update_layout(
     xaxis_title_text="Percentage",
@@ -179,7 +178,7 @@ pre_rec_fig.add_trace(go.Bar(
     marker_color='#EB89B5',
     opacity=0.95,
     orientation='h',
-    text=df["Precision"].apply(lambda x:round(x,2)),
+    text=df["Precision"].apply(lambda x: round(x, 2)),
     textposition='outside',
 ))
 
@@ -190,7 +189,7 @@ pre_rec_fig.add_trace(go.Bar(
     marker_color='#330C73',
     opacity=0.95,
     orientation='h',
-    text=df["Recall"].apply(lambda x:round(x,2)),
+    text=df["Recall"].apply(lambda x: round(x, 2)),
     textposition='outside',
 ))
 
@@ -260,17 +259,25 @@ nav_bar = dbc.Navbar(
 
 side_bar = html.Div(
     [
-        html.H6("Results", className="display-4"),
+        html.H6("Project", className="display-4"),
         html.Hr(),
         html.P(
-            "Choose a page to begin", className="lead",
+            "Page Content", className="lead",
         ),
         dbc.Nav(
             [
-                dbc.NavLink("Introduction", href="/", active="exact"),
-                dbc.NavLink("Model Performance", href="/page-1", active="exact"),
-                dbc.NavLink("Model Performance 2", href="/page-2", active="exact"),
-                dbc.NavLink("Model Performance 3", href="/page-3", active="exact"),
+                dbc.Button(html.A('Project Definition', href="#anchor-point",
+                                  style={"text-decoration": "none", "color": "#555"}), color="info", outline=True),
+                html.Br(),
+                dbc.Button(html.A('ML Models', href="#anchor-point",
+                                  style={"text-decoration": "none", "color": "#555"}), color="info", outline=True),
+                html.Br(),
+                dbc.Button(html.A('Datasets', href="#anchor-point",
+                                  style={"text-decoration": "none", "color": "#555"}), color="info", outline=True),
+                html.Br(),
+                dbc.Button(html.A('link to bottom', href="#anchor-point",
+                                  style={"text-decoration": "none", "color": "#555"}), color="info", outline=True),
+
             ],
             vertical=True,
             pills=True,
@@ -287,17 +294,42 @@ intro = [
             dbc.Row(
                 [
                     dbc.Col(
+                        html.P(
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget dui magna. Curabitur eget "
+                            "mauris eget ex euismod auctor. Donec in massa non massa accumsan ornare. Mauris a luctus tortor. In "
+                            "ornare ante nec mauris convallis mattis.",
+                            className="card-text",
+                        ),
+                        # width={"size": 8}
+                    ),
+                    dbc.Col(
                         html.Img(src="https://static8.depositphotos.com/1026550/i/600/depositphotos_9546122-stock"
                                      "-photo-close-op-of-fiber-optics.jpg", height="100px"),
-                        width={"size": 2}
+                        # width={"size": 2}
+                    ),
+                ]
+            ),
+        ]
+    )
+]
+
+motivation = [
+    dbc.CardHeader("Project Motivation"),
+    dbc.CardBody(
+        [
+            # html.H5("Machine Learning Based IDS", className="card-title"),
+            dbc.Row(
+                [
+                    dbc.Col(
+                        html.Img(src="https://static8.depositphotos.com/1026550/i/600/depositphotos_9546122-stock"
+                                     "-photo-close-op-of-fiber-optics.jpg", height="100px"),
+                        # width={"size": 2}
                     ),
                     dbc.Col(
                         html.P(
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget dui magna. Curabitur eget "
                             "mauris eget ex euismod auctor. Donec in massa non massa accumsan ornare. Mauris a luctus tortor. In "
-                            "ornare ante nec mauris convallis mattis. Pellentesque habitant morbi tristique senectus et netus et "
-                            "malesuada fames ac turpis egestas. Etiam lacinia vestibulum dictum. Vivamus facilisis nibh ac eros "
-                            "porta vulputate. Suspendisse potenti.",
+                            "ornare ante nec mauris convallis mattis.",
                             className="card-text",
                         ),
                         # width={"size": 8}
@@ -322,9 +354,7 @@ dt = [
                         html.P(
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget dui magna. Curabitur eget "
                             "mauris eget ex euismod auctor. Donec in massa non massa accumsan ornare. Mauris a luctus tortor. In "
-                            "ornare ante nec mauris convallis mattis. Pellentesque habitant morbi tristique senectus et netus et "
-                            "malesuada fames ac turpis egestas. Etiam lacinia vestibulum dictum. Vivamus facilisis nibh ac eros "
-                            "porta vulputate. Suspendisse potenti.",
+                            "ornare ante nec mauris convallis mattis.",
                             className="card-text",
                         ),
                         # width={"size": 8}
@@ -342,7 +372,9 @@ rf = [
             dbc.Row(
                 [
                     dbc.Col(
-                        html.Img(src="https://lh4.googleusercontent.com/ANxp1CRZ8m4UohG8XJpvJusOpP-v-_7JLVwXXCpOAWwxdH2cEq0LRUym6WZgkdJNukBhUjCdBwnVYGm-gqXAn6YIEYM96CUbOHr0JhEAWawyygy5mShAiny3IRcdYmA63sxz26pT", height="100px"),
+                        html.Img(
+                            src="https://lh4.googleusercontent.com/ANxp1CRZ8m4UohG8XJpvJusOpP-v-_7JLVwXXCpOAWwxdH2cEq0LRUym6WZgkdJNukBhUjCdBwnVYGm-gqXAn6YIEYM96CUbOHr0JhEAWawyygy5mShAiny3IRcdYmA63sxz26pT",
+                            height="100px"),
                         width={"size": 2}
                     ),
                     dbc.Col(
@@ -369,7 +401,9 @@ gb = [
             dbc.Row(
                 [
                     dbc.Col(
-                        html.Img(src="https://gblobscdn.gitbook.com/assets%2F-LvBP1svpACTB1R1x_U4%2F-Lw6zezdliKWkGknCJ6R%2F-Lw70EB_T-Y3OCO-L_4o%2Fimage.png?alt=media&token=a3edaf4a-d3d2-4c84-9a10-3d870c21d641", height="100px"),
+                        html.Img(
+                            src="https://gblobscdn.gitbook.com/assets%2F-LvBP1svpACTB1R1x_U4%2F-Lw6zezdliKWkGknCJ6R%2F-Lw70EB_T-Y3OCO-L_4o%2Fimage.png?alt=media&token=a3edaf4a-d3d2-4c84-9a10-3d870c21d641",
+                            height="100px"),
                         width={"size": 2}
                     ),
                     dbc.Col(
@@ -416,48 +450,110 @@ xgb = [
     ),
 ]
 
+data_label_graph = go.Figure()
+data_label_graph.add_trace(
+    go.Pie(labels=['Normal Data', 'Intrusion Data'], values=[56000, 119341], hole=.3)
+)
+
+data_type_graph = go.Figure()
+data_type_graph.add_trace(
+    go.Pie(labels=['type 1', 'type 2', 'type 3', 'type 4'], values=[450, 790, 1000, 730], hole=.3)
+)
+
+data_label_card = [
+    dbc.CardHeader("Dataset Label Distribution"),
+    dbc.CardBody(
+        [
+            dbc.Row(
+                [
+                    dcc.Graph(
+                        id='data-label-graph',
+                        figure=data_label_graph),
+                ]
+            ),
+        ]
+    )
+]
+
+data_type_card = [
+    dbc.CardHeader("Data Types in Dataset"),
+    dbc.CardBody(
+        [
+            dbc.Row(
+                [
+                    dcc.Graph(
+                        id='data_type_graph',
+                        figure=data_type_graph),
+                ]
+            ),
+        ]
+    )
+]
+
 home_content = html.Div(
     [
         html.Br(),
-        html.H1("Our Project"),
         html.Br(),
         dbc.Row(
             [
-                dbc.Col(dbc.Card(intro, color="light"))
-            ]
+                dbc.Col(dbc.Card(intro, color="dark", inverse=True)),
+                dbc.Col(dbc.Card(motivation, color="light"))
+            ],
+            className="mb-5",
         ),
-        html.Br(),
-        # dbc.Carousel(
-        #     items=[
-        #         {"key": "1", "src": "https://3.bp.blogspot.com/-RBu_zCzBmZc/WtZbzRVHFuI/AAAAAAAABzE/_CWY7woKdnApBTbzx-latDjP3TiTCbUPQCLcBGAs/s640/Decision%2BTree%2BStage%2B1.jpg"},
-        #         {"key": "2", "src": "https://3.bp.blogspot.com/-AwUteKA-yXw/WtjYPllqShI/AAAAAAAAB0c/fYwB4Q8-nmk_3u9x8r5X7smfWmuMsu_DwCLcBGAs/s640/Split%2Bby%2BRainy.jpg"},
-        #         {"key": "3", "src": "https://1.bp.blogspot.com/-vEy0tVpBuQ4/Wte39ZkiXpI/AAAAAAAABzk/8n-CF4cmYnEylEKUKf0-yiJtWmmYy2pSgCLcBGAs/s640/Decision-Tree-Final.jpg"},
-        #     ],
-        #     className="carousel-fade"
-        # ),
-        # html.Br(),
+        dbc.Row(
+            [
+                dbc.Button("See What's Inside Our Dataset", color="primary", block=True, id="data-card-toggle",
+                           n_clicks=0),
+            ],
+            className="mb-5",
+        ),
+        dbc.Row(
+            [
+
+                dbc.Col(
+                    html.Div(
+                        dbc.Card(data_label_card)
+                    ),
+                    id="data-label-card-div",
+                    style={"display": "none"}
+                ),
+                dbc.Col(
+                    html.Div(
+                        dbc.Card(data_type_card)
+                    ),
+                    id="data-type-card-div",
+                    style={"display": "none"}
+                ),
+                # dbc.Col(dbc.Card(data_type_card)),
+            ],
+            id="data-card-row",
+            className="mb-5",
+            # style={"display": "none"}
+        ),
         dbc.Row(
             [
                 dbc.Col(dbc.Card(dt, color="light"))
-            ]
+            ],
+            className="mb-4",
         ),
-        html.Br(),
         dbc.Row(
             [
                 dbc.Col(dbc.Card(rf, color="light"))
-            ]
+            ],
+            className="mb-4",
         ),
-        html.Br(),
         dbc.Row(
             [
                 dbc.Col(dbc.Card(gb, color="light"))
-            ]
+            ],
+            className="mb-4",
         ),
-        html.Br(),
         dbc.Row(
             [
                 dbc.Col(dbc.Card(xgb, color="light"))
-            ]
+            ],
+            id="anchor-point"
         ),
     ]
 )
@@ -510,9 +606,9 @@ app.layout = html.Div(
                 ),
                 dbc.Col(
                     [
-                        html.Div(home_content, style={"display": "none"}, id="page-1"),
+                        html.Div(home_content, style={"display": "block"}, id="page-1"),
                         html.Div(result1_content, style={"display": "block"}, id="page-2"),
-                        html.Div(result2_content, style={"display": "none"}, id="page-3"),
+                        html.Div(result2_content, style={"display": "block"}, id="page-3"),
                     ],
                     width={"size": 9},
                 ),
