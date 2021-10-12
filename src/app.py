@@ -36,8 +36,22 @@ app.title = "COMS6200 Project"
 server = app.server
 app.config["suppress_callback_exceptions"] = True
 
-# with open('../data/result.json') as f:
-#     data = json.load(f)
+with open('../data/result.json') as f:
+    data = json.load(f)
+b = ['Model','Train_time','Testing_time','Trained_accuracy','Testing_accuracy','TN','FP','FN','TP','Precision','recall','fpr','fnr','tnr','npv','fdr','for','f1',]
+a = {}
+for i in b:
+    a[i] = []
+for i in data['82332']:
+    a['Model'].append(i)
+for i in a['Model']:
+    for j in data['82332'][i]:
+        a[j].append(data['82332'][i][j])
+print(data)
+print(a)#a is the dict u want
+
+
+
 #
 # df_full = pd.DataFrame.from_records(data['82332'])
 # dtc_full = df_full['DTC']
