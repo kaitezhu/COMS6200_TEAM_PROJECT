@@ -36,3 +36,19 @@ def register_callbacks(app):
                 {"display": "none"},
                 {"display": "none"},
             ]
+
+    @app.callback(
+        [
+            # Output("data-card-row", "style"),
+            Output("data-label-card-div", "style"),
+            Output("data-type-card-div", "style"),
+        ],
+        [
+            Input("data-card-toggle", "n_clicks"),
+        ]
+    )
+    def show_data_card(n):
+        if n:
+            return [{"display": "block"}, {"display": "block"}]
+        else:
+            raise PreventUpdate
