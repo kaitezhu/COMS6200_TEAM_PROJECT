@@ -36,207 +36,22 @@ app.title = "COMS6200 Project"
 server = app.server
 app.config["suppress_callback_exceptions"] = True
 
-with open('../data/result.json') as f:
-    data = json.load(f)
-b = ['Model','Train_time','Testing_time','Trained_accuracy','Testing_accuracy','TN','FP','FN','TP','Precision','recall','fpr','fnr','tnr','npv','fdr','for','f1',]
-a = {}
-for i in b:
-    a[i] = []
-for i in data['82332']:
-    a['Model'].append(i)
-for i in a['Model']:
-    for j in data['82332'][i]:
-        a[j].append(data['82332'][i][j])
-print(data)
-print(a)#a is the dict u want
+# with open('../data/result.json') as f:
+#     data = json.load(f)
+# keys = ['Model','Train_time','Testing_time','Trained_accuracy','Testing_accuracy','TN','FP','FN','TP','Precision','recall','fpr','fnr','tnr','npv','fdr','for','f1',]
+# data_full = {}
+# for key in keys:
+#     data_full[key] = []
+# for i in data['82332']:
+#     data_full['Model'].append(i)
+# for i in data_full['Model']:
+#     for j in data['82332'][i]:
+#         data_full[j].append(data['82332'][i][j])
+# # print(data)
+# print(data_full['Train_time'])
 
 
 
-#
-# df_full = pd.DataFrame.from_records(data['82332'])
-# dtc_full = df_full['DTC']
-# rfc_full = df_full['RFC']
-# gb_full = df_full['GB']
-# xgb_full = df_full['XGB']
-#
-# model = ["Decision Tree", "Random Forest", "Gradient Boosting", "XGBoost"]
-# train_time = []
-# test_time = []
-# train_acc = []
-# test_acc = []
-# precision = []
-# recall = []
-#
-# # train_time = dtc_full['Train_time'].__add__(rfc_full['Train_time'])
-# train_time = np.append(dtc_full['Train_time'], rfc_full['Train_time'], gb_full['Train_time'], xgb_full['Train_time'])
-# # gb_full['Train_time'] + xgb_full['Train_time']
-# print(train_time)
-#
-# # df_full.reset_index(level=0, inplace=True)
-
-
-df = pd.DataFrame({
-    "Model": ["Decision Tree", "Random Forest", "Gradient Boosting", "XGBoost"],
-    "Training Time": [810, 1120, 18290, 290],
-    "Testing Time": [40, 150, 1080, 40],
-    "Training ACC": [99.21, 99.61, 98.52, 97.94],
-    "Testing ACC": [90.61, 90.83, 91.23, 91.61],
-    "Precision": [96.78, 98.21, 97.47, 97.11],
-    "Recall": [89.16, 88.13, 89.43, 90.37],
-    "FPR": [6.32, 3.42, 4.95, 5.74],
-    "FNR": [10.84, 11.87, 10.57, 9.63],
-    "TPR": [66.98, 66.04, 66.72, 67.14],
-    "TNR": [6.32, 3.42, 4.95, 5.74],
-})
-
-train_test_fig = go.Figure()
-train_test_fig.add_trace(go.Bar(
-    y=df["Training Time"],
-    x=df["Model"],
-    name="Training Time",
-    marker_color='#778899',
-    opacity=0.95,
-    text=df["Training Time"],
-    textposition='outside',
-))
-
-train_test_fig.add_trace(go.Bar(
-    y=df["Testing Time"],
-    x=df["Model"],
-    name="Testing Time",
-    marker_color='#dc143c',
-    opacity=0.95,
-    text=df["Testing Time"],
-    textposition='outside',
-))
-
-train_test_fig.update_layout(
-    # xaxis_title_text="Model Name",
-    yaxis_title_text="Time (ms)",
-    bargap=0.2,
-    bargroupgap=0.1,
-    title={
-        'text': 'Training & Testing Time',
-        'y': 0.9,
-        'x': 0.5,
-        'xanchor': 'center',
-        'yanchor': 'top'
-    },
-    legend=dict(
-        orientation='h',
-        yanchor='bottom',
-        y=1.02,
-        xanchor='right',
-        x=1
-    ),
-    uniformtext_minsize=8,
-    uniformtext_mode='hide',
-)
-
-acc_fig = go.Figure()
-
-acc_fig.add_trace(go.Bar(
-    x=df["Training ACC"],
-    y=df["Model"],
-    name="Training ACC",
-    marker_color="#119dff",
-    # marker_color='#EB89B5',
-    opacity=0.95,
-    orientation='h',
-    text=df["Training ACC"].apply(lambda x: round(x, 2)),
-    textposition='outside',
-))
-
-acc_fig.add_trace(go.Bar(
-    x=df["Testing ACC"],
-    y=df["Model"],
-    name="Testing ACC",
-    marker_color="#66c2a5",
-    # marker_color='#330C73',
-    opacity=0.95,
-    orientation='h',
-    text=df["Testing ACC"].apply(lambda x: round(x, 2)),
-    textposition='outside',
-))
-
-acc_fig.update_layout(
-    xaxis_title_text="Percentage",
-    # yaxis_title_text="Percentage",
-    bargap=0.5,
-    bargroupgap=0.1,
-    yaxis_tickangle=-45,
-    title={
-        'text': 'Training & Testing Accuracy',
-        'y': 0.9,
-        'x': 0.5,
-        'xanchor': 'center',
-        'yanchor': 'top'
-    },
-    legend=dict(
-        orientation='h',
-        yanchor='bottom',
-        y=1.02,
-        xanchor='right',
-        x=1
-    ),
-    uniformtext_minsize=8,
-    uniformtext_mode='hide',
-)
-
-pre_rec_fig = go.Figure()
-
-pre_rec_fig.add_trace(go.Bar(
-    x=df["Precision"],
-    y=df["Model"],
-    name="Precision",
-    marker_color='#EB89B5',
-    opacity=0.95,
-    orientation='h',
-    text=df["Precision"].apply(lambda x: round(x, 2)),
-    textposition='outside',
-))
-
-pre_rec_fig.add_trace(go.Bar(
-    x=df["Recall"],
-    y=df["Model"],
-    name="Recall",
-    marker_color='#330C73',
-    opacity=0.95,
-    orientation='h',
-    text=df["Recall"].apply(lambda x: round(x, 2)),
-    textposition='outside',
-))
-
-pre_rec_fig.update_layout(
-    xaxis_title_text="Percentage",
-    bargap=0.5,
-    bargroupgap=0.1,
-    yaxis_tickangle=-45,
-    title={
-        'text': 'Precision & Recall',
-        'y': 0.9,
-        'x': 0.5,
-        'xanchor': 'center',
-        'yanchor': 'top'
-    },
-    legend=dict(
-        orientation='h',
-        yanchor='bottom',
-        y=1.02,
-        xanchor='right',
-        x=1
-    ),
-    uniformtext_minsize=8,
-    uniformtext_mode='hide',
-)
-
-# [FNR + TPR] + [TNR + FPR]
-dt = df[df['Model'] == 'Decision Tree']
-dt_fnr = df[df['Model'] == 'Decision Tree']['FNR'].values
-dt_tpr = df[df['Model'] == 'Decision Tree']['TPR'].values
-dt_tnr = df[df['Model'] == 'Decision Tree']['TNR'].values
-dt_fpr = df[df['Model'] == 'Decision Tree']['FPR'].values
-# print(dt_fnr, dt_tpr, dt_tnr, dt_fpr)
 
 
 nav_bar = dbc.Navbar(
@@ -280,17 +95,17 @@ side_p1 = html.Div(
         ),
         dbc.Nav(
             [
-                dbc.Button(html.A('Project Definition', href="#anchor-point",
-                                  style={"text-decoration": "none", "color": "#555"}), color="info", outline=True),
+                dbc.Button(html.A('Project Definition', href="",
+                                  style={"text-decoration": "none", "color": "#fff"}), color="primary"),
                 html.Br(),
-                dbc.Button(html.A('ML Models', href="#anchor-point",
-                                  style={"text-decoration": "none", "color": "#555"}), color="info", outline=True),
+                dbc.Button(html.A('ML Models', href="#",
+                                  style={"text-decoration": "none", "color": "#fff"}), color="primary"),
                 html.Br(),
-                dbc.Button(html.A('Datasets', href="#anchor-point",
-                                  style={"text-decoration": "none", "color": "#555"}), color="info", outline=True),
+                dbc.Button(html.A('Datasets', href="",
+                                  style={"text-decoration": "none", "color": "#fff"}), color="primary"),
                 html.Br(),
-                dbc.Button(html.A('link to bottom', href="#anchor-point",
-                                  style={"text-decoration": "none", "color": "#555"}), color="info", outline=True),
+                dbc.Button(html.A('link to bottom', href="",
+                                  style={"text-decoration": "none", "color": "#fff"}), color="primary"),
 
             ],
             vertical=True,
@@ -302,22 +117,55 @@ side_p1 = html.Div(
 
 side_p2 = html.Div(
     [
-        html.H1("Result 1", className="display-4"),
+        html.H1("Result #1", className="display-4"),
         html.Hr(className="mb-4"),
         # html.Label("Select Your Models", className="mb-4"),
         dbc.Alert("Select Your Models", color="primary", className="mb-4"),
         dcc.Dropdown(
             options=[
-                {'label': 'Decision Tree', 'value': 'DT'},
-                {'label': 'Random Forest', 'value': 'RF'},
-                {'label': 'Gradient Boosting', 'value': 'GB'},
-                {'label': 'XGBoost', 'value': 'XGB'},
+                {'label': 'Decision Tree', 'value': '0'},
+                {'label': 'Random Forest', 'value': '1'},
+                {'label': 'Gradient Boosting', 'value': '2'},
+                {'label': 'XGBoost', 'value': '3'},
             ],
+            id="model-dropdown",
             value=[],
             multi=True,
             className="mb-4",
         ),
         dbc.Button("Confirm", color="primary", block=True, id="model-dropdown-btn"),
+    ],
+    style=SIDEBAR_STYLE,
+)
+
+side_p3 = html.Div(
+    [
+        html.H1("Result #2", className="display-4"),
+        html.Hr(className="mb-4"),
+        dbc.Alert("Select Your Columns", color="primary", className="mb-4"),
+        dcc.Dropdown(
+            options=[
+                {'label': 'Training Time', 'value': '0'},
+                {'label': 'Testing Time', 'value': '1'},
+                {'label': 'Training Accuracy', 'value': '2'},
+                {'label': 'Testing Accuracy', 'value': '3'},
+                {'label': 'True Positive Rate', 'value': '4'},
+                {'label': 'True Negative Rate', 'value': '5'},
+                {'label': 'False Positive Rate', 'value': '6'},
+                {'label': 'False Negative Rate', 'value': '7'},
+                {'label': 'Precision', 'value': '8'},
+                {'label': 'Recall', 'value': '9'},
+                {'label': 'Negative Predictive Value', 'value': '10'},
+                {'label': 'False Discovery Rate', 'value': '11'},
+                {'label': 'False Omission Rate', 'value': '12'},
+                {'label': 'F1', 'value': '13'},
+            ],
+            id="col-dropdown",
+            value=['1', '3'],
+            multi=True,
+            className="mb-4",
+        ),
+        dbc.Button("Confirm", color="primary", block=True, id="col-dropdown-btn"),
     ],
     style=SIDEBAR_STYLE,
 )
@@ -546,7 +394,6 @@ home_content = html.Div(
         ),
         dbc.Row(
             [
-
                 dbc.Col(
                     html.Div(
                         dbc.Card(data_label_card)
@@ -600,33 +447,65 @@ result1_content = html.Div(
         html.Hr(),
         dcc.Graph(
             id='train-test-graph',
-            figure=train_test_fig,
+            # figure=train_test_fig,
         ),
 
         html.Br(),
         html.Hr(),
         dcc.Graph(
             id='acc-graph',
-            figure=acc_fig,
+            # figure=acc_fig,
         ),
         html.Br(),
         html.Hr(),
         dcc.Graph(
             id='pre_rec-graph',
-            figure=pre_rec_fig,
+            # figure=pre_rec_fig,
         ),
         html.Br(),
         html.Hr(),
+        dcc.Graph(
+            id='dt-heatmap',
+        ),
+        dcc.Graph(
+            id='rf-heatmap',
+        ),
+        dcc.Graph(
+            id='gb-heatmap',
+        ),
+        dcc.Graph(
+            id='xgb-heatmap',
+        )
 
     ],
-    id="page-content",
     style=CONTENT_STYLE,
 )
 
 result2_content = html.Div(
     [
-        "RESULT 2 CONTENT"
-    ]
+        html.H1("Model Vulnerability Test with Different Data Volume"),
+        html.Hr(className='mb-5'),
+        dcc.Slider(
+            min=100,
+            max=82332,
+            step=None,
+            marks={
+                100: '100',
+                1000: '1000',
+                5000: '5000',
+                10000: '10000',
+                30000: '30000',
+                50000: '50000',
+                82332: '82332'
+            },
+            value=5,
+            className="mb-4",
+        ),
+        dcc.Graph(
+            id='',
+        )
+    ],
+    style=CONTENT_STYLE,
 )
 
 app.layout = html.Div(
@@ -641,6 +520,9 @@ app.layout = html.Div(
                         html.Div(side_p1, id="side-div-p1"),
                         html.Div(
                             side_p2, id="side-div-p2", style={"display": "none"}
+                        ),
+                        html.Div(
+                            side_p3, id="side-div-p3", style={"display": "none"}
                         ),
                     ],
                     width={"size": 2},
