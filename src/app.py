@@ -42,13 +42,14 @@ app.config["suppress_callback_exceptions"] = True
 # data_full = {}
 # for key in keys:
 #     data_full[key] = []
-# for i in data['82332']:
+# for i in data['81173']:
 #     data_full['Model'].append(i)
 # for i in data_full['Model']:
-#     for j in data['82332'][i]:
-#         data_full[j].append(data['82332'][i][j])
+#     for j in data['81173'][i]:
+#         data_full[j].append(data['81173'][i][j])
 # # print(data)
-# print(data_full['Train_time'])
+# df = pd.DataFrame(data_full)
+# print(df)
 
 
 
