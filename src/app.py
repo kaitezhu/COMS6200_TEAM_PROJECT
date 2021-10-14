@@ -201,13 +201,13 @@ motivation = [
                             "Machine learning methods will essentially turn intrusion detection into classification"
                             " problems through modelling with different attributes(independent factors) of the associated "
                             "networking packets and identify intrusion among audit data. ",
-                            className="card-text ml-3",
+                            className="card-text ml-3 mr-5",
                         ),
                     ),
                     dbc.Col(
                         html.Img(src="https://img.deusm.com/informationweek/June21/machinelearning-WrightStudio-adobe.jpg", height="150px"),
                         # width={"size": 2}
-                        className="ml-4",
+                        className="ml-5",
                     ),
 
                 ]
