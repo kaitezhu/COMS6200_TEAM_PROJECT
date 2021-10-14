@@ -17,8 +17,9 @@ ensure you set working directory in %/COMS6200_TEAM_PROJECT/src/
 open coms6200 project.ipynb
 ensure the dataset exist in COMS6200_TEAM_PROJECT/data/
 for any packet that is not import in anaconda, follow the below example command and run it at cell
-# import sys
-# !{sys.executable} -m pip install xxxx_packet
+
+import sys
+!{sys.executable} -m pip install xxxx_packet
 --------------------------------------------------
 #if xgboost is not imported
 import sys
