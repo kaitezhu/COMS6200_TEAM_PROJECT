@@ -259,12 +259,10 @@ rf = [
                     ),
                     dbc.Col(
                         html.P(
-                            "Gradient Boosting is a kind of implementing Boosting. The core principle is that the "
-                            "gradient descent direction of the loss function is set before researchers establish a "
-                            "model. The loss function represents the varying degree of this model. If the value of "
-                            "the loss function is larger, the model may generate more errors. Therefore, if the loss "
-                            "function continues to decline, it indicates that the model's performance is steadily "
-                            "improving.",
+                            "The random forest model has a strong generalization ability. Even if some parts of "
+                            "the features are missing, the accuracy is still guaranteed. It has two randomnesses "
+                            "that can reduce the noise of the attribute feature field, and the correlation is also"
+                            " eliminated to ensure the accuracy of detection.",
                             className="card-text",
                         ),
                         # width={"size": 8}
