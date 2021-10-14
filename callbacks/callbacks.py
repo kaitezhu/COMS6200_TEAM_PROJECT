@@ -450,6 +450,7 @@ def register_callbacks(app):
             Input("col-checklist", "value"),
         ]
     )
+
     def generate_graph_2(selected_volume, check_val):
         with open('../data/result.json') as f:
             data = json.load(f)
