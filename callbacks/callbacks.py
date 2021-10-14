@@ -369,13 +369,26 @@ def register_callbacks(app):
         font_colors = ['white', 'black']
         x_text = ['Predicted 0', 'Predicted 1']
         y_text = ['Actual 1', 'Actual 0']
-        dt_heat = ff.create_annotated_heatmap(dt_heat_data, x=x_text, y=y_text, colorscale=colorscale,
+        new_dt = []
+        new_dt.append([str(i)+"%" for i in dt_heat_data[0]])
+        new_dt.append([str(i) + "%" for i in dt_heat_data[1]])
+        new_rf = []
+        new_rf.append([str(i)+"%" for i in rf_heat_data[0]])
+        new_rf.append([str(i) + "%" for i in rf_heat_data[1]])
+        new_gb = []
+        new_gb.append([str(i)+"%" for i in gb_heat_data[0]])
+        new_gb.append([str(i) + "%" for i in gb_heat_data[1]])
+        new_xgb = []
+        new_xgb.append([str(i)+"%" for i in xgb_heat_data[0]])
+        new_xgb.append([str(i) + "%" for i in xgb_heat_data[1]])
+
+        dt_heat = ff.create_annotated_heatmap(dt_heat_data, x=x_text, y=y_text, annotation_text=new_dt,colorscale=colorscale,
                                               font_colors=font_colors)
-        rf_heat = ff.create_annotated_heatmap(rf_heat_data, x=x_text, y=y_text, colorscale=colorscale,
+        rf_heat = ff.create_annotated_heatmap(rf_heat_data, x=x_text, y=y_text, annotation_text=new_rf,colorscale=colorscale,
                                               font_colors=font_colors)
-        gb_heat = ff.create_annotated_heatmap(gb_heat_data, x=x_text, y=y_text, colorscale=colorscale,
+        gb_heat = ff.create_annotated_heatmap(gb_heat_data, x=x_text, y=y_text, annotation_text=new_gb,colorscale=colorscale,
                                               font_colors=font_colors)
-        xgb_heat = ff.create_annotated_heatmap(xgb_heat_data, x=x_text, y=y_text, colorscale=colorscale,
+        xgb_heat = ff.create_annotated_heatmap(xgb_heat_data, x=x_text, y=y_text, annotation_text=new_xgb,colorscale=colorscale,
                                                font_colors=font_colors)
         dt_heat.update_layout(
             title={
@@ -455,7 +468,6 @@ def register_callbacks(app):
         selected_cols = []
         for val in check_val:
             selected_cols.append(col_names[int(val)])
-        print(selected_cols)
         for k in range(len(selected_cols)):
             filtered_data = data_full[str(selected_volume)]
             # filtered = filtered_data[0][col_names[k]]
