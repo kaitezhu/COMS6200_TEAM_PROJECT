@@ -35,6 +35,7 @@ data generator file: COMS6200_TEAM_PROJECT/src/Model_evaluation_data_generator.p
 ensure you install all the imported packege
 click run to generate the file
 output file: COMS6200_TEAM_PROJECT/data/data.json
+manually copy data.json to result.json
 ------------------------------------------------------------------------------------------------------------------------------------------------
 ###########################################################Website visualize####################################################################
 ------------------------------------------------------------------------------------------------------------------------------------------------
