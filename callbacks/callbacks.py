@@ -450,8 +450,6 @@ def register_callbacks(app):
                 for j in data[key][i]:
                     data_full[key][j].append(data[key][i][j])
 
-        # [data_full[selected_volume][k] for k in ['Train_time', 'Testing_accuracy']]
-
         fig = make_subplots(5, 1, horizontal_spacing=0.05)
         col_names = ['f1', 'Precision', 'recall', 'Testing_accuracy', 'Balance']
         selected_cols = []
