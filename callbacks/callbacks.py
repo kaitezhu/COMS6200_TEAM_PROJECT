@@ -365,7 +365,7 @@ def register_callbacks(app):
         gb_heat_data = np.around(np.reshape(gb_heat_data, (-1, 2)) / 35179 * 100, decimals=2)
         xgb_heat_data = np.around(np.reshape(xgb_heat_data, (-1, 2)) / 35179 * 100, decimals=2)
 
-        colorscale = [[0, 'navy'], [1, 'plum']]
+        colorscale = 'Viridis'
         font_colors = ['white', 'black']
         x_text = ['Predicted 0', 'Predicted 1']
         y_text = ['Actual 1', 'Actual 0']
