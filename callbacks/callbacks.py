@@ -123,7 +123,7 @@ def register_callbacks(app):
             x=f1,
             y=model_name,
             name="F1 Score",
-            marker_color=['#0b84a5', '#f6c85f'],
+            marker_color=['#1B96C6', '#EF767A','#456990','#EEB868'],
             opacity=0.95,
             orientation='h',
             # text=data_full["Trained_accuracy"].apply(lambda x: round(x, 2)),
@@ -183,17 +183,18 @@ def register_callbacks(app):
             type='line', line=dict(dash='dash'),
             x0=0, x1=1, y0=0, y1=1
         )
+        roc_colour = ['rgba(26,150,65,0.5)','rgba(255, 99, 71, 0.5)','rgba(255, 99, 206, 0.3)','rgba(34, 99, 206, 0.3)']
         for i in range(len(model_check_val)):
             name = f"{model_name[i]} (AUC={AUC[i]:.2f})"
-            roc_fig.add_trace(go.Scatter(x=fpr_list[i], y=tpr_list[i], name=name, mode='lines'))
+            roc_fig.add_trace(go.Scatter(x=fpr_list[i], y=tpr_list[i], name=name, mode='lines+markers', fill='tozeroy',fillcolor=roc_colour[i],opacity=0.5))
 
         roc_fig.update_layout(
             xaxis_title='False Positive Rate',
             yaxis_title='True Positive Rate',
             yaxis=dict(scaleanchor="x", scaleratio=1),
             xaxis=dict(constrain='domain'),
-            width=700,
-            # height=500,
+            #width=700,
+            height=650,
             title={
                 'text': 'ROC Curve',
                 'y': 0.9,

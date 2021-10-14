@@ -173,17 +173,17 @@ intro = [
                             "detect intrusion that is an improvement from existing models. Sub-goals will be involved "
                             "around the following parameters, focusing on the accuracy, recall, F1, construction time, "
                             "prediction time, and precision",
-                            className="card-text ml-3",
+                            className="card-text ml-3 mr-5",
                             ),
                         # width={"size": 8}
                     ),
                     dbc.Col(
-                        html.Img(src="https://static8.depositphotos.com/1026550/i/600/depositphotos_9546122-stock"
-                                     "-photo-close-op-of-fiber-optics.jpg", height="100px"),
+                        html.Img(src="https://miro.medium.com/max/1400/1*cRIbVMjOa7jEDS6yLd0lNg.jpeg", height="150px"),
                         # width={"size": 2}
-                        className="ml-4",
+                        className="ml-5",
                     ),
                 ]
+
             ),
         ]
     )
@@ -198,13 +198,14 @@ motivation = [
                 [
                     dbc.Col(
                         html.P(
-                            "Machine learning methods will essentially turn intrusion detection into classification problems through modelling with different attributes(independent factors) of the associated networking packets and identify intrusion among audit data. ",
+                            "Machine learning methods will essentially turn intrusion detection into classification"
+                            " problems through modelling with different attributes(independent factors) of the associated "
+                            "networking packets and identify intrusion among audit data. ",
                             className="card-text ml-3",
                         ),
                     ),
                     dbc.Col(
-                        html.Img(src="https://static8.depositphotos.com/1026550/i/600/depositphotos_9546122-stock"
-                                     "-photo-close-op-of-fiber-optics.jpg", height="100px"),
+                        html.Img(src="https://img.deusm.com/informationweek/June21/machinelearning-WrightStudio-adobe.jpg", height="150px"),
                         # width={"size": 2}
                         className="ml-4",
                     ),
