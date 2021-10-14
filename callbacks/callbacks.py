@@ -321,7 +321,6 @@ def register_callbacks(app):
             marker_color='#330C73',
             opacity=0.95,
             orientation='h',
-            # text=data_full["recall"].apply(lambda x: round(x, 2)),
             text=rec,
             textposition='outside',
         ))
