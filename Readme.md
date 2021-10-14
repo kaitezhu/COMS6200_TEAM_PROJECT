@@ -20,10 +20,9 @@ for any packet that is not import in anaconda, follow the below example command 
 # import sys
 # !{sys.executable} -m pip install xxxx_packet
 --------------------------------------------------
-from xgboost import XGBClassifier
 #if xgboost is not imported
-# import sys
-# !{sys.executable} -m pip install xgboost
+import sys
+{sys.executable} -m pip install xgboost
 --------------------------------------------------
 coms6200 project.ipynb's cell are not independent, they are in sequence order, so maybe try run all instead random pick and run
 coms6200 project.ipynb is only for data preprocess and hyperparameter tuning, the good parameter and dataset will passed to data generator
