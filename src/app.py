@@ -414,7 +414,6 @@ home_content = html.Div(
                     id="data-type-card-div",
                     style={"display": "none"}
                 ),
-                # dbc.Col(dbc.Card(data_type_card)),
             ],
             id="data-card-row",
             className="mb-5",
