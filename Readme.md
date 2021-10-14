@@ -39,5 +39,15 @@ manually copy data.json to result.json
 ------------------------------------------------------------------------------------------------------------------------------------------------
 ###########################################################Website visualize####################################################################
 ------------------------------------------------------------------------------------------------------------------------------------------------
-   
+Main File: app.py -> COMS6200_PROJECT\src\app.py
+Callback File: callbacks.py -> COMS6200_PROJECT\callbacks\callbacks.py
+Data File: result.json -> COMS6200_PROJECT\data\result.json
+How to execute the app:
+1. Before the initial execution of the app, making sure that you have imported the required packages (check package versions)
+2. Go to app.py and click run to execute the app
+3. If you see the console message that reads "Dash is running on http://127.0.0.1:8050/", it means the Dash app is successfully running
+4. Check the console message if the running message is not appearing
+5. Paste the Dash URL into your browser, and this should allow you to access the app content
+6. Follow the app's instruction and select the desired models/parameters
+
 ------------------------------------------------------------------------------------------------------------------------------------------------
