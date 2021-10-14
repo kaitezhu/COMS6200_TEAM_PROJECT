@@ -1,3 +1,4 @@
+import dash
 from dash.dependencies import Output, Input, State
 from dash.exceptions import PreventUpdate
 import json
@@ -5,7 +6,6 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
 import plotly.figure_factory as ff
-
 
 def register_callbacks(app):
     with open('../data/result.json') as f:
@@ -32,28 +32,12 @@ def register_callbacks(app):
             Input("result2-btn", "n_clicks"),
         ]
     )
+
     def change_page(home, res1, res2):
+        changed_id = [p['prop_id'] for p in dash.callback_context.triggered][0]
         if home is None and res1 is None and res2 is None:
             raise PreventUpdate
-        if res1:
-            return [
-                {"display": "none"},
-                {"display": "block"},
-                {"display": "none"},
-                {"display": "none"},
-                {"display": "block"},
-                {"display": "none"},
-            ]
-        if res2:
-            return [
-                {"display": "none"},
-                {"display": "none"},
-                {"display": "block"},
-                {"display": "none"},
-                {"display": "none"},
-                {"display": "block"},
-            ]
-        if home:
+        elif 'home-btn.n_clicks' == changed_id:
             return [
                 {"display": "block"},
                 {"display": "none"},
@@ -62,6 +46,25 @@ def register_callbacks(app):
                 {"display": "none"},
                 {"display": "none"},
             ]
+        elif 'result1-btn.n_clicks' == changed_id:
+            return [
+                {"display": "none"},
+                {"display": "block"},
+                {"display": "none"},
+                {"display": "none"},
+                {"display": "block"},
+                {"display": "none"},
+            ]
+        elif 'result2-btn.n_clicks' == changed_id:
+            return [
+                {"display": "none"},
+                {"display": "none"},
+                {"display": "block"},
+                {"display": "none"},
+                {"display": "none"},
+                {"display": "block"},
+            ]
+
 
     @app.callback(
         [

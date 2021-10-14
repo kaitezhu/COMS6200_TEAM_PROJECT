@@ -520,8 +520,8 @@ app.layout = html.Div(
                 dbc.Col(
                     [
                         html.Div(home_content, style={"display": "block"}, id="page-1"),
-                        html.Div(result1_content, style={"display": "block"}, id="page-2"),
-                        html.Div(result2_content, style={"display": "block"}, id="page-3"),
+                        html.Div(result1_content, style={"display": "none"}, id="page-2"),
+                        html.Div(result2_content, style={"display": "none"}, id="page-3"),
                     ],
                     width={"size": 9},
                 ),
