@@ -296,7 +296,6 @@ gb = [
                             "improving.",
                             className="card-text",
                         ),
-                        # width={"size": 8}
                         className="ml-3",
                     ),
                 ]
