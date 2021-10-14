@@ -31,6 +31,16 @@ CONTENT_STYLE = {
     "box-shadow": "0 3px 10px rgb(0 0 0 / 0.2)",
 }
 
+CARD_HEADER = {
+     "background-color": "#1D3557",
+     "color": "#fff"
+}
+
+SUB_CARD_HEADER = {
+    "background-color": "#24292d",
+    "color": "#fff"
+}
+
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 app.title = "COMS6200 Project"
 server = app.server
@@ -52,22 +62,18 @@ app.config["suppress_callback_exceptions"] = True
 # print(df)
 
 
-
-
-
 nav_bar = dbc.Navbar(
     [
         html.A(
             dbc.Row(
                 [
                     dbc.Col(html.Img(src=NAV_LOGO, height="50px")),
-                    dbc.Col(dbc.NavbarBrand("COMS6200 Project", className="ml-2")),
-
+                    dbc.Col(dbc.NavbarBrand("COMS6200 IDS Project", style={"color": "#fff"}, className="ml-2")),
                     dbc.ButtonGroup(
                         [
-                            dbc.Button("Home", id="home-btn"),
-                            dbc.Button("Result 1", id="result1-btn"),
-                            dbc.Button("Result 2", id="result2-btn"),
+                            dbc.Button("Home", id="home-btn", color="light"),
+                            dbc.Button("Result 1", id="result1-btn", color="light"),
+                            dbc.Button("Result 2", id="result2-btn", color="light"),
                         ],
                         style={
                             "position": "absolute",
@@ -82,7 +88,7 @@ nav_bar = dbc.Navbar(
         ),
         dbc.NavbarToggler(id="navbar-toggler", n_clicks=0),
     ],
-    color="dark",
+    color="#1D3557",
     dark=True,
     # style={"margin-left": "20rem"}
 )
@@ -96,18 +102,12 @@ side_p1 = html.Div(
         ),
         dbc.Nav(
             [
-                dbc.Button(html.A('Project Definition', href="",
-                                  style={"text-decoration": "none", "color": "#fff"}), color="primary"),
-                html.Br(),
-                dbc.Button(html.A('ML Models', href="#",
-                                  style={"text-decoration": "none", "color": "#fff"}), color="primary"),
-                html.Br(),
-                dbc.Button(html.A('Datasets', href="",
-                                  style={"text-decoration": "none", "color": "#fff"}), color="primary"),
-                html.Br(),
-                dbc.Button(html.A('link to bottom', href="",
-                                  style={"text-decoration": "none", "color": "#fff"}), color="primary"),
-
+                dbc.Button(html.A('Project Definition', href="", style={"text-decoration": "none", "color": "#fff"}),
+                           color="dark", className='mb-4'),
+                dbc.Button(html.A('ML Models', href="", style={"text-decoration": "none", "color": "#fff"}),
+                           color="dark", className='mb-4'),
+                dbc.Button(html.A('Datasets', href="", style={"text-decoration": "none", "color": "#fff"}),
+                           color="dark", className='mb-4'),
             ],
             vertical=True,
             pills=True,
@@ -120,21 +120,20 @@ side_p2 = html.Div(
     [
         html.H1("Result #1", className="display-4"),
         html.Hr(className="mb-4"),
-        # html.Label("Select Your Models", className="mb-4"),
         dbc.Alert("Select Your Models", color="primary", className="mb-4"),
-        dcc.Dropdown(
+        dbc.Checklist(
             options=[
                 {'label': 'Decision Tree', 'value': '0'},
                 {'label': 'Random Forest', 'value': '1'},
                 {'label': 'Gradient Boosting', 'value': '2'},
                 {'label': 'XGBoost', 'value': '3'},
             ],
-            id="model-dropdown",
-            value=[],
-            multi=True,
+            id="model-checklist",
+            value=['0', '3'],
+            switch=True,
             className="mb-4",
         ),
-        dbc.Button("Confirm", color="primary", block=True, id="model-dropdown-btn"),
+        # dbc.Button("Confirm", color="primary", block=True, id="model-dropdown-btn"),
     ],
     style=SIDEBAR_STYLE,
 )
@@ -144,29 +143,19 @@ side_p3 = html.Div(
         html.H1("Result #2", className="display-4"),
         html.Hr(className="mb-4"),
         dbc.Alert("Select Your Columns", color="primary", className="mb-4"),
-        dcc.Dropdown(
+        dbc.Checklist(
             options=[
-                {'label': 'Training Time', 'value': '0'},
-                {'label': 'Testing Time', 'value': '1'},
-                {'label': 'Training Accuracy', 'value': '2'},
-                {'label': 'Testing Accuracy', 'value': '3'},
-                {'label': 'True Positive Rate', 'value': '4'},
-                {'label': 'True Negative Rate', 'value': '5'},
-                {'label': 'False Positive Rate', 'value': '6'},
-                {'label': 'False Negative Rate', 'value': '7'},
-                {'label': 'Precision', 'value': '8'},
-                {'label': 'Recall', 'value': '9'},
-                {'label': 'Negative Predictive Value', 'value': '10'},
-                {'label': 'False Discovery Rate', 'value': '11'},
-                {'label': 'False Omission Rate', 'value': '12'},
-                {'label': 'F1', 'value': '13'},
+                {'label': 'F1 Score', 'value': '0'},
+                {'label': 'Precision', 'value': '1'},
+                {'label': 'Recall', 'value': '2'},
+                {'label': 'Testing ACC', 'value': '3'},
+                {'label': 'Balanced ACC', 'value': '4'},
             ],
-            id="col-dropdown",
-            value=['1', '3'],
-            multi=True,
+            id="col-checklist",
+            value=['0', '4'],
+            switch=True,
             className="mb-4",
         ),
-        dbc.Button("Confirm", color="primary", block=True, id="col-dropdown-btn"),
     ],
     style=SIDEBAR_STYLE,
 )
@@ -180,17 +169,19 @@ intro = [
                 [
                     dbc.Col(
                         html.P(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget dui magna. Curabitur eget "
-                            "mauris eget ex euismod auctor. Donec in massa non massa accumsan ornare. Mauris a luctus tortor. In "
-                            "ornare ante nec mauris convallis mattis.",
-                            className="card-text",
-                        ),
+                            "This project's overall aim will be to produce the best possible machine learning model to "
+                            "detect intrusion that is an improvement from existing models. Sub-goals will be involved "
+                            "around the following parameters, focusing on the accuracy, recall, F1, construction time, "
+                            "prediction time, and precision",
+                            className="card-text ml-3",
+                            ),
                         # width={"size": 8}
                     ),
                     dbc.Col(
                         html.Img(src="https://static8.depositphotos.com/1026550/i/600/depositphotos_9546122-stock"
                                      "-photo-close-op-of-fiber-optics.jpg", height="100px"),
                         # width={"size": 2}
+                        className="ml-4",
                     ),
                 ]
             ),
@@ -206,19 +197,18 @@ motivation = [
             dbc.Row(
                 [
                     dbc.Col(
+                        html.P(
+                            "Machine learning methods will essentially turn intrusion detection into classification problems through modelling with different attributes(independent factors) of the associated networking packets and identify intrusion among audit data. ",
+                            className="card-text ml-3",
+                        ),
+                    ),
+                    dbc.Col(
                         html.Img(src="https://static8.depositphotos.com/1026550/i/600/depositphotos_9546122-stock"
                                      "-photo-close-op-of-fiber-optics.jpg", height="100px"),
                         # width={"size": 2}
+                        className="ml-4",
                     ),
-                    dbc.Col(
-                        html.P(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget dui magna. Curabitur eget "
-                            "mauris eget ex euismod auctor. Donec in massa non massa accumsan ornare. Mauris a luctus tortor. In "
-                            "ornare ante nec mauris convallis mattis.",
-                            className="card-text",
-                        ),
-                        # width={"size": 8}
-                    ),
+
                 ]
             ),
         ]
@@ -237,12 +227,16 @@ dt = [
                     ),
                     dbc.Col(
                         html.P(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget dui magna. Curabitur eget "
-                            "mauris eget ex euismod auctor. Donec in massa non massa accumsan ornare. Mauris a luctus tortor. In "
-                            "ornare ante nec mauris convallis mattis.",
+                            "The decision tree is a tree structure used to reveal structured information in data. By "
+                            "using this structure, a large record set can be divided into interconnected small "
+                            "recordsets. Through each successive segmentation, the members in the result set become "
+                            "more and more similar. Hyperparameters such as max, depth, splitter, minimum weight "
+                            "fraction would be adjusted and tested to obtain the best prediction accuracy.The decision "
+                            "tree algorithm can be used to visualize the data rules.",
                             className="card-text",
                         ),
                         # width={"size": 8}
+                        className="ml-3",
                     ),
                 ]
             ),
@@ -264,14 +258,16 @@ rf = [
                     ),
                     dbc.Col(
                         html.P(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget dui magna. Curabitur eget "
-                            "mauris eget ex euismod auctor. Donec in massa non massa accumsan ornare. Mauris a luctus tortor. In "
-                            "ornare ante nec mauris convallis mattis. Pellentesque habitant morbi tristique senectus et netus et "
-                            "malesuada fames ac turpis egestas. Etiam lacinia vestibulum dictum. Vivamus facilisis nibh ac eros "
-                            "porta vulputate. Suspendisse potenti.",
+                            "Gradient Boosting is a kind of implementing Boosting. The core principle is that the "
+                            "gradient descent direction of the loss function is set before researchers establish a "
+                            "model. The loss function represents the varying degree of this model. If the value of "
+                            "the loss function is larger, the model may generate more errors. Therefore, if the loss "
+                            "function continues to decline, it indicates that the model's performance is steadily "
+                            "improving.",
                             className="card-text",
                         ),
                         # width={"size": 8}
+                        className="ml-3",
                     ),
                 ]
             ),
@@ -293,14 +289,16 @@ gb = [
                     ),
                     dbc.Col(
                         html.P(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget dui magna. Curabitur eget "
-                            "mauris eget ex euismod auctor. Donec in massa non massa accumsan ornare. Mauris a luctus tortor. In "
-                            "ornare ante nec mauris convallis mattis. Pellentesque habitant morbi tristique senectus et netus et "
-                            "malesuada fames ac turpis egestas. Etiam lacinia vestibulum dictum. Vivamus facilisis nibh ac eros "
-                            "porta vulputate. Suspendisse potenti.",
+                            "Gradient Boosting is a kind of implementing Boosting. The core principle is that the "
+                            "gradient descent direction of the loss function is set before researchers establish a "
+                            "model. The loss function represents the varying degree of this model. If the value of "
+                            "the loss function is larger, the model may generate more errors. Therefore, if the loss "
+                            "function continues to decline, it indicates that the model's performance is steadily "
+                            "improving.",
                             className="card-text",
                         ),
                         # width={"size": 8}
+                        className="ml-3",
                     ),
                 ]
             ),
@@ -320,14 +318,14 @@ xgb = [
                     ),
                     dbc.Col(
                         html.P(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget dui magna. Curabitur eget "
-                            "mauris eget ex euismod auctor. Donec in massa non massa accumsan ornare. Mauris a luctus tortor. In "
-                            "ornare ante nec mauris convallis mattis. Pellentesque habitant morbi tristique senectus et netus et "
-                            "malesuada fames ac turpis egestas. Etiam lacinia vestibulum dictum. Vivamus facilisis nibh ac eros "
-                            "porta vulputate. Suspendisse potenti.",
+                            "XGBoost is based on decision trees, and it is an integrated machine learning algorithm. "
+                            "This model applies a gradient boosting algorithm on a known data set and then classifies "
+                            "the data accordingly. The idea of the Boosting algorithm is to integrate many weak "
+                            "classifiers to form a more robust classifier.",
                             className="card-text",
                         ),
                         # width={"size": 8}
+                        className="ml-3",
                     ),
                 ]
             ),
@@ -337,12 +335,19 @@ xgb = [
 
 data_label_graph = go.Figure()
 data_label_graph.add_trace(
-    go.Pie(labels=['Normal Data', 'Intrusion Data'], values=[56000, 119341], hole=.3)
+    go.Pie(labels=['Normal Data', 'Malicious Data'], values=[56000, 119341], hole=.3,
+           marker=dict(colors=['#99ccff', '#cc99ff']))
 )
 
 data_type_graph = go.Figure()
 data_type_graph.add_trace(
-    go.Pie(labels=['type 1', 'type 2', 'type 3', 'type 4'], values=[450, 790, 1000, 730], hole=.3)
+    go.Pie(labels=['Normal', 'Generic', 'Exploits', 'Fuzzers', 'DoS', 'Reconnaissance', 'Analysis', 'Backdoor',
+                   'Shellcode', 'Worms'], values=[56000, 40000, 33393, 18184, 12264, 10491, 2000, 1746, 1133, 130],
+           hole=.3,
+           marker=dict(
+               colors=['#e6f2ff', '#99ccff', '#ccccff', '#cc99ff', '#ff99ff', '#ff6699', '#ff9966', '#ff6600',
+                       '#ff5050', '#ff0000']
+           ))
 )
 
 data_label_card = [
@@ -381,14 +386,14 @@ home_content = html.Div(
         html.Br(),
         dbc.Row(
             [
-                dbc.Col(dbc.Card(intro, color="dark", inverse=True)),
-                dbc.Col(dbc.Card(motivation, color="light"))
+                dbc.Col(dbc.Card(intro)),
+                dbc.Col(dbc.Card(motivation))
             ],
             className="mb-5",
         ),
         dbc.Row(
             [
-                dbc.Button("See What's Inside Our Dataset", color="primary", block=True, id="data-card-toggle",
+                dbc.Button("See What's Inside Our Dataset", color="danger", block=True, outline=True, id="data-card-toggle",
                            n_clicks=0),
             ],
             className="mb-5",
@@ -444,39 +449,22 @@ home_content = html.Div(
 
 result1_content = html.Div(
     [
-        html.H1("Model Comparison"),
+        html.H1("Model Comparison using Full Dataset"),
         html.Hr(),
-        dcc.Graph(
-            id='train-test-graph',
-            # figure=train_test_fig,
-        ),
-
-        html.Br(),
+        dcc.Graph(id='f1-graph', className='mb-4'),
         html.Hr(),
-        dcc.Graph(
-            id='acc-graph',
-            # figure=acc_fig,
-        ),
-        html.Br(),
+        dcc.Graph(id='roc-graph', className='mb-4'),
         html.Hr(),
-        dcc.Graph(
-            id='pre_rec-graph',
-            # figure=pre_rec_fig,
-        ),
-        html.Br(),
+        dcc.Graph(id='acc-graph', className='mb-4'),
         html.Hr(),
-        dcc.Graph(
-            id='dt-heatmap',
-        ),
-        dcc.Graph(
-            id='rf-heatmap',
-        ),
-        dcc.Graph(
-            id='gb-heatmap',
-        ),
-        dcc.Graph(
-            id='xgb-heatmap',
-        )
+        dcc.Graph(id='pre_rec-graph', className='mb-4'),
+        html.Hr(),
+        dcc.Graph(id='train-test-graph', className='mb-4'),
+        html.Hr(),
+        dcc.Graph(id='dt-heatmap'),
+        dcc.Graph(id='rf-heatmap'),
+        dcc.Graph(id='gb-heatmap'),
+        dcc.Graph(id='xgb-heatmap')
 
     ],
     style=CONTENT_STYLE,
@@ -484,11 +472,12 @@ result1_content = html.Div(
 
 result2_content = html.Div(
     [
-        html.H1("Model Vulnerability Test with Different Data Volume"),
+        html.H1("Model Performance vs. Data Volume"),
         html.Hr(className='mb-5'),
+        html.Br(),
         dcc.Slider(
             min=100,
-            max=82332,
+            max=81173,
             step=None,
             marks={
                 100: '100',
@@ -497,13 +486,14 @@ result2_content = html.Div(
                 10000: '10000',
                 30000: '30000',
                 50000: '50000',
-                82332: '82332'
+                81173: '81173'
             },
-            value=5,
+            id="volume-slider",
+            value=100,
             className="mb-4",
         ),
         dcc.Graph(
-            id='',
+            id='slider-graph',
         )
     ],
     style=CONTENT_STYLE,
